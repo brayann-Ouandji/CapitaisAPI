@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -40,15 +42,22 @@ public class LoginServlet extends HttpServlet {
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
 		 
- 		if( user == null || pass == null) {
+ 		if( user == null || pass == null || user.isEmpty() || pass.isEmpty()) {
  			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
  		}
- 		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		String jsonResponse = "{\"user\": \"" + user + "\", \"password\": \"" + pass + "\"}";
-		out.print(jsonResponse);
-		out.flush();
+ 		boolean validate = dbdao.validateUserCredentials(user, pass);
+ 		if (validate) {
+ 			HttpSession session = request.getSession(true);
+ 			session.setAttribute("UserName", user);
+ 			response.setStatus(HttpServletResponse.SC_OK);
+ 			response.setContentType("application/json");
+ 			PrintWriter out = response.getWriter();
+ 			String jsonResponse = "{\"message\": \"OK" + "\", \"passwuserord\": \"" + user + "\"}";
+ 			out.print(jsonResponse);
+ 			out.flush();
+ 		}
+ 		
 		doGet(request, response);
 	}
 

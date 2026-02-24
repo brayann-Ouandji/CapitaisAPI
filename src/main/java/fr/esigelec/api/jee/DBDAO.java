@@ -61,6 +61,8 @@ public class DBDAO {
         }
     	
     	public boolean validateUserCredentials(String user, String pass) {
-    		
+    		String Validuser = "javaee";
+    		String Validpass = "esigelec2026";
+    		return Validuser.equals(user) && Validpass.equals(pass);
     	}
 }
