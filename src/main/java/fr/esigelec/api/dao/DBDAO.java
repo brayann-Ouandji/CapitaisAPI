@@ -1,9 +1,11 @@
-package fr.esigelec.api.jee;
+package fr.esigelec.api.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import fr.esigelec.api.jee.CountryModel;
 
 public class DBDAO {
 	private List<String> countryCodes;
@@ -61,8 +63,12 @@ public class DBDAO {
         }
     	
     	public boolean validateUserCredentials(String user, String pass) {
+<<<<<<< HEAD:src/main/java/fr/esigelec/api/jee/DBDAO.java
     		String Validuser = "javaee";
     		String Validpass = "esigelec2026";
     		return Validuser.equals(user) && Validpass.equals(pass);
+=======
+    		return true;
+>>>>>>> a3af89f1cf035769de02d1def73fc1c72b2934e3:src/main/java/fr/esigelec/api/dao/DBDAO.java
     	}
 }

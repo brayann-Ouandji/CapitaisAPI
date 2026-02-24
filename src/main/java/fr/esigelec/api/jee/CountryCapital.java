@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import fr.esigelec.api.dao.DBDAO;
+
 /**
  * Servlet implementation class CountryCapital
  */
@@ -37,7 +39,7 @@ public class CountryCapital extends HttpServlet {
 		String country = dbdao.getCountryName(Code1);	
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		String jsonResponse = "{\"country\": \"" + country + "\", \"capital\": \"" + capital + "\", \"ccode\": \"" + Code1 + "\"}";
+		String jsonResponse = "{\"country\": \"" + country + "\", \"capital\": \"" + capital + "\", \"code\": \"" + Code1 + "\"}";
 		out.print(jsonResponse);
 		out.flush();
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
