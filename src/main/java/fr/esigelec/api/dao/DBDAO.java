@@ -63,12 +63,8 @@ public class DBDAO {
         }
     	
     	public boolean validateUserCredentials(String user, String pass) {
-<<<<<<< HEAD:src/main/java/fr/esigelec/api/jee/DBDAO.java
     		String Validuser = "javaee";
     		String Validpass = "esigelec2026";
     		return Validuser.equals(user) && Validpass.equals(pass);
-=======
-    		return true;
->>>>>>> a3af89f1cf035769de02d1def73fc1c72b2934e3:src/main/java/fr/esigelec/api/dao/DBDAO.java
     	}
 }
