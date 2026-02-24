@@ -43,9 +43,13 @@ public class LoginServlet extends HttpServlet {
 		DBDAO dbdao = new DBDAO();
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
-		 
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
  		if( user == null || pass == null || user.isEmpty() || pass.isEmpty()) {
+ 			
  			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+ 			
+ 			out.print("{\"message\": \" BAD REQUEST" + "\", \"error\": \"Missing Parameter , user or pass" + "\"}");
 			return;
  		}
  		boolean validate = dbdao.validateUserCredentials(user, pass);
@@ -53,14 +57,13 @@ public class LoginServlet extends HttpServlet {
  			HttpSession session = request.getSession(true);
  			session.setAttribute("UserName", user);
  			response.setStatus(HttpServletResponse.SC_OK);
- 			response.setContentType("application/json");
- 			PrintWriter out = response.getWriter();
- 			String jsonResponse = "{\"message\": \"OK" + "\", \"passwuserord\": \"" + user + "\"}";
- 			out.print(jsonResponse);
- 			out.flush();
+ 			out.print("{\"message\": \" Login is OK" + "\", \"user\": \"" + user + "\"}");
+ 		} else {
+ 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+ 			out.print("{\"message\": \" FORBIDDEN!" + "\", \"error\": \"Invalid login or password"+ "\"}");
  		}
  		
-		doGet(request, response);
+ 		 out.flush();
 	}
 
 }
