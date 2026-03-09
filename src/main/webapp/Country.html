@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><title>Manage Countries</title></head>
+<body>
+ <h2>Create User</h2>
+    <form method="POST" action="LoginServlet"> 
+        <input type="hidden" name="operation" value="insert"> 
+        Name: <input type="text" name="username" maxlength="45" required> 
+        Password: <input type="text" name="password" required> 
+        
+        <button type="submit">Create</button>
+    </form>
+    <h2>Insert Country</h2>
+    <form method="POST" action="CountryEditServlet"> 
+        <input type="hidden" name="operation" value="insert"> 
+        Code: <input type="text" name="code" maxlength="2" required> 
+        Name: <input type="text" name="name" required> 
+        Capital: <input type="text" name="capital" required>
+        <button type="submit">Insert</button>
+    </form>
+
+    <h2>Update Country</h2>
+    <form method="POST" action="CountryEditServlet">
+        <input type="hidden" name="operation" value="update">
+        Code to Update: <input type="text" name="code" maxlength="2" required>
+        New Name: <input type="text" name="name" required>
+        New Capital: <input type="text" name="capital" required>
+        <button type="submit">Update</button>
+    </form>
+
+    <h2>Delete Country</h2>
+    <form method="POST" action="CountryEditServlet">
+        <input type="hidden" name="operation" value="delete">
+        Code to Delete: <input type="text" name="code" maxlength="2" required>
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

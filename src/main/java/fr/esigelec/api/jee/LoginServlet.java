@@ -41,11 +41,20 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DBDAO dbdao = new DBDAO();
-		String user = request.getParameter("user");
-		String pass = request.getParameter("pass");
 		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
+        
+        // take the operation we want.
+        String operation = request.getParameter("operation");
+        if (operation == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print("{\"error\":\"Operation parameter is MIssing\"}");
+            return;
+        }
+		DBDAO dbdao = new DBDAO();
+		String user = request.getParameter("username");
+		String pass = request.getParameter("password");
+		response.setContentType("application/json");
  		if( user == null || pass == null || user.isEmpty() || pass.isEmpty()) {
  			
  			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -53,6 +62,8 @@ public class LoginServlet extends HttpServlet {
  			out.print("{\"message\": \" BAD REQUEST" + "\", \"error\": \"Missing Parameter , user or pass" + "\"}");
 			return;
  		}
+ 		
+ 		dbdao.createUser(user, pass);
  		boolean validate = dbdao.validateUserCredentials(user, pass);
  		if (validate) {
  			HttpSession session = request.getSession(true);

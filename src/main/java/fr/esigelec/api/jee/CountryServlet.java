@@ -34,14 +34,7 @@ public class CountryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);
-		if (session == null  || session.getAttribute("UserName") == null) {
-			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			response.setContentType("application/json");
-			PrintWriter out = response.getWriter();
-			out.print("{\"Message\" : \"The authentification is required to access to a session\"}");
-			return;
-		}
+
 		String countrycode = request.getParameter("countrycode");
 		DBDAO dbdao = new DBDAO();
 		CountryModel countrym = dbdao.getCountry(countrycode);

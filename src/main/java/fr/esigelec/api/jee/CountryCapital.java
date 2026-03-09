@@ -33,13 +33,14 @@ public class CountryCapital extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String countrycode = request.getParameter("countrycode");
 		DBDAO dbdao = new DBDAO();
-		String Code1 = dbdao.getCountryCodes().get(0); // Gets the first code (PT)
-		String capital = dbdao.getCapitalName(Code1);
-		String country = dbdao.getCountryName(Code1);	
+		CountryModel countryM = dbdao.getCountry(countrycode);
+		String capital= countryM.getCapital();
+		String country = countryM.getName();	
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		String jsonResponse = "{\"country\": \"" + country + "\", \"capital\": \"" + capital + "\", \"code\": \"" + Code1 + "\"}";
+		String jsonResponse = "{\"country\": \"" + country + "\", \"capital\": \"" + capital + "\", \"code\": \"" + countrycode + "\"}";
 		out.print(jsonResponse);
 		out.flush();
 		// response.getWriter().append("Served at: ").append(request.getContextPath());

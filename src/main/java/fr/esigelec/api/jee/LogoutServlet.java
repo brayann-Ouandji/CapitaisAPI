@@ -5,22 +5,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import fr.esigelec.api.dao.DBDAO;
-
 /**
- * Servlet implementation class CaptitalServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/CaptitalServlet")
-public class CaptitalServlet extends HttpServlet {
+@WebServlet("/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CaptitalServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,28 +30,16 @@ public class CaptitalServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String countrycode = request.getParameter("countrycode");
-		
-		if (countrycode == null || countrycode.isEmpty()) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			return;
-		} 
-		DBDAO dbdao = new DBDAO();
-		CountryModel country = dbdao.getCountry(countrycode);
-		String capital= country.getCapital();
-		
-		if (capital == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		} 
-		
-		
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession LogoutSession = request.getSession(false);
+		if(LogoutSession == null) {
+			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
-			String jsonResponse = "{\"countrycode\": \"" + countrycode.toUpperCase() + "\", \"capital\": \"" + capital + "\"}";
-			out.print(jsonResponse);
-			out.flush();
-		
+			out.print("{\"message\" : \"Logout OK\"}");
+			return;
+		}
+		LogoutSession.invalidate();
 	}
 
 	/**
